@@ -1,28 +1,30 @@
-import React from 'react'
-import axios from 'axios'
-import { makePageRoutes } from 'react-static/node'
-import { renderStylesToString } from 'emotion-server'
+import React from "react";
+import axios from "axios";
+import { makePageRoutes } from "react-static/node";
+import { renderStylesToString } from "emotion-server";
 
 //
 
-const routeSize = 1000
+const routeSize = 1000;
 
 if (!process.env.REACT_STATIC_SLAVE) {
-  console.log()
-  console.log(`Testing ${routeSize} routes`)
+  console.log();
+  console.log(`Testing ${routeSize} routes`);
 }
 
 export default {
   getRoutes: async () => {
-    const { data: posts } = await axios.get('https://jsonplaceholder.typicode.com/posts')
+    const { data: posts } = await axios.get(
+      "https://jsonplaceholder.typicode.com/posts"
+    );
 
-    const allPosts = []
+    const allPosts = [];
 
     while (allPosts.length < routeSize) {
       allPosts.push({
         ...posts[Math.floor(Math.random() * posts.length)],
-        id: allPosts.length,
-      })
+        id: allPosts.length
+      });
     }
 
     return [
@@ -35,30 +37,30 @@ export default {
       ...makePageRoutes({
         items: allPosts,
         pageSize: 50,
-        pageToken: 'page', // use page for the prefix, eg. blog/page/3
+        pageToken: "page", // use page for the prefix, eg. blog/page/3
         route: {
           // Use this route as the base route
-          path: 'blog',
-          component: 'src/pages/blog', // component is required, since we are technically generating routes
+          path: "blog",
+          component: "src/pages/blog" // component is required, since we are technically generating routes
         },
         decorate: (posts, i, totalPages) => ({
           // For each page, supply the posts, page and totalPages
           getData: () => ({
             posts,
             currentPage: i,
-            totalPages,
-          }),
-        }),
+            totalPages
+          })
+        })
       }),
       // Make the routes for each blog post
       ...allPosts.map(post => ({
         path: `blog/post/${post.id}`,
-        component: 'src/containers/Post',
+        component: "src/containers/Post",
         getData: () => ({
-          post,
-        }),
-      })),
-    ]
+          post
+        })
+      }))
+    ];
   },
-  renderToHtml: (render, Comp) => renderStylesToString(render(<Comp />)),
-}
+  renderToHtml: (render, Comp) => renderStylesToString(render(<Comp />))
+};
