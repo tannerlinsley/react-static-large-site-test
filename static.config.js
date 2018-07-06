@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { makePageRoutes } from "react-static/node";
-// import { renderStylesToString } from "emotion-server";
+import { renderStylesToString } from "emotion-server";
 
 //
 
@@ -62,5 +62,5 @@ export default {
       }))
     ];
   },
-  // renderToHtml: (render, Comp) => renderStylesToString(render(<Comp />))
+  renderToHtml: (render, Comp) => renderStylesToString(render(<Comp />))
 };
