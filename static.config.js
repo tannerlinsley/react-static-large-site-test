@@ -28,30 +28,30 @@ export default {
     }
 
     return [
-      // {
-      //   path: 'blog',
-      //   getData: () => ({
-      //     posts: allPosts,
-      //   }),
-      // },
-      ...makePageRoutes({
-        items: allPosts,
-        pageSize: 50,
-        pageToken: "page", // use page for the prefix, eg. blog/page/3
-        route: {
-          // Use this route as the base route
-          path: "blog",
-          component: "src/pages/blog" // component is required, since we are technically generating routes
-        },
-        decorate: (posts, i, totalPages) => ({
-          // For each page, supply the posts, page and totalPages
-          getData: () => ({
-            posts,
-            currentPage: i,
-            totalPages
-          })
-        })
-      }),
+      {
+        path: 'blog',
+        getData: () => ({
+          posts: allPosts,
+        }),
+      },
+      // ...makePageRoutes({
+      //   items: allPosts,
+      //   pageSize: 50,
+      //   pageToken: "page", // use page for the prefix, eg. blog/page/3
+      //   route: {
+      //     // Use this route as the base route
+      //     path: "blog",
+      //     component: "src/pages/blog" // component is required, since we are technically generating routes
+      //   },
+      //   decorate: (posts, i, totalPages) => ({
+      //     // For each page, supply the posts, page and totalPages
+      //     getData: () => ({
+      //       posts,
+      //       currentPage: i,
+      //       totalPages
+      //     })
+      //   })
+      // }),
       // Make the routes for each blog post
       ...allPosts.map(post => ({
         path: `blog/post/${post.id}`,
