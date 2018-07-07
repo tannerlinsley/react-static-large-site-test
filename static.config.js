@@ -13,6 +13,7 @@ if (!process.env.REACT_STATIC_SLAVE) {
 }
 
 export default {
+  outputFileRate: 50,
   getRoutes: async () => {
     const { data: posts } = await axios.get(
       "https://jsonplaceholder.typicode.com/posts"
@@ -20,10 +21,14 @@ export default {
 
     const allPosts = [];
 
-    while (allPosts.length < routeSize) {
+    let i = 0
+    while (i < routeSize) {
+      i++
+      const post = posts[i % posts.length]
       allPosts.push({
-        ...posts[Math.floor(Math.random() * posts.length)],
-        id: allPosts.length
+        ...post,
+        id: i,
+        body: post.body + ' ' + i
       });
     }
 
