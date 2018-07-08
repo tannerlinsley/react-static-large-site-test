@@ -13,6 +13,7 @@ if (!process.env.REACT_STATIC_SLAVE) {
 }
 
 export default {
+  // maxThreads: 1,
   getRoutes: async () => {
     const { data: posts } = await axios.get(
       "https://jsonplaceholder.typicode.com/posts"
