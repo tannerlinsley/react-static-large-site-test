@@ -5,7 +5,7 @@ import { renderStylesToString } from "emotion-server";
 
 //
 
-const routeSize = 100000;
+const routeSize = 500000;
 
 if (!process.env.REACT_STATIC_SLAVE) {
   console.log();
