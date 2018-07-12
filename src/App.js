@@ -3,9 +3,7 @@ import { Router, Link } from "react-static";
 //
 import Routes from "react-static-routes";
 
-if (!process.env.STYLE_SYSTEM) {
-  require("./app.css");
-}
+import "./app.css";
 
 const App = () => (
   <Router>

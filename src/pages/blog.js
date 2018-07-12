@@ -19,7 +19,7 @@ const PaginationLink = styled
       padding: 0.2rem 0.3rem;
       opacity: ${props => (props.isCurrent ? 0.5 : 1)};
     `
-  : props => <div {...props} />;
+  : Link;
 
 export default () => (
   <RouteData

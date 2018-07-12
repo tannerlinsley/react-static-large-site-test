@@ -18,11 +18,8 @@
     "axios": "^0.16.2",
     "emotion": "^9.2.4",
     "emotion-server": "^9.2.4",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
     "react-emotion": "^9.2.4",
-    "react-router": "^4.2.0",
-    "react-static": "^6.0.0-beta.10",
+    "react-static": "6.0.0-beta.11",
     "styled-components": "^3.3.3"
   },
   "devDependencies": {
