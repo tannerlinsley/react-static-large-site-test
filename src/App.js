@@ -1,9 +1,11 @@
-import React from 'react'
-import { Router, Link } from 'react-static'
+import React from "react";
+import { Router, Link } from "react-static";
 //
-import Routes from 'react-static-routes'
+import Routes from "react-static-routes";
 
-import './app.css'
+if (!process.env.STYLE_SYSTEM) {
+  require("./app.css");
+}
 
 const App = () => (
   <Router>
@@ -20,6 +22,6 @@ const App = () => (
       </div>
     </div>
   </Router>
-)
+);
 
-export default App
+export default App;
