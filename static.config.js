@@ -1,8 +1,5 @@
-import React from "react";
 import axios from "axios";
 import { makePageRoutes } from "react-static/node";
-import { ServerStyleSheet } from "styled-components";
-import { renderStylesToString } from "emotion-server";
 
 //
 
@@ -14,6 +11,11 @@ if (!process.env.REACT_STATIC_SLAVE) {
 }
 
 export default {
+  plugins: [
+    process.env.STYLE_SYSTEM === "emotion" && "react-static-plugin-emotion",
+    process.env.STYLE_SYSTEM === "styled-components" &&
+      "react-static-plugin-styled-components"
+  ].filter(Boolean),
   // maxThreads: 1,
   getRoutes: async () => {
     const { data: posts } = await axios.get(
@@ -70,38 +72,5 @@ export default {
         })
       }))
     ];
-  },
-  ...(process.env.STYLE_SYSTEM === "emotion"
-    ? {
-        renderToHtml: (render, Comp) => renderStylesToString(render(<Comp />))
-      }
-    : process.env.STYLE_SYSTEM === "styled"
-      ? {
-          renderToHtml: (render, Comp, meta) => {
-            const sheet = new ServerStyleSheet();
-            const html = render(sheet.collectStyles(<Comp />));
-            meta.styleTags = sheet.getStyleElement();
-            return html;
-          },
-          Document: class CustomHtml extends React.Component {
-            render() {
-              const { Html, Head, Body, children, renderMeta } = this.props;
-
-              return (
-                <Html>
-                  <Head>
-                    <meta charSet="UTF-8" />
-                    <meta
-                      name="viewport"
-                      content="width=device-width, initial-scale=1"
-                    />
-                    {renderMeta.styleTags}
-                  </Head>
-                  <Body>{children}</Body>
-                </Html>
-              );
-            }
-          }
-        }
-      : {})
+  }
 };
